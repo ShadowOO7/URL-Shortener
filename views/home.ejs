@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <div class="max-w-3xl mx-auto py-8">
+        <h1 class="text-4xl font-bold text-center text-indigo-700">🚀 URL Shortener</h1>
+
+        <!-- Form -->
+        <form id="shortenForm" method="POST" action="/url" 
+              class="bg-white shadow-lg p-6 rounded-lg mt-6 flex gap-2">
+            <input type="url" name="url" placeholder="Enter your URL here..."
+                   class="flex-1 border border-gray-300 p-2 rounded-lg focus:ring focus:ring-indigo-300"
+                   required />
+            <button type="submit" 
+                    class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 transition">
+                Generate
+            </button>
+        </form>
+
+        <!-- URL Table -->
+        <div class="mt-8">
+            <table class="table-auto w-full border-collapse shadow-lg rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-indigo-600 text-white">
+                        <th class="px-4 py-2">#</th>
+                        <th class="px-4 py-2">Short ID</th>
+                        <th class="px-4 py-2">Redirect</th>
+                        <th class="px-4 py-2">Clicks</th>
+                    </tr>
+                </thead>
+                <tbody id="urlTable">
+                    <% urls.forEach((url, index) => { %>
+                        <tr class="hover:bg-indigo-50 transition">
+                            <td class="px-4 py-2"><%= index+1 %></td>
+                            <td class="px-4 py-2 font-mono"><%= url.shortId %></td>
+                            <td class="px-4 py-2 text-blue-600 underline">
+                                <a href="<%= url.redirectURL %>" target="_blank"><%= url.redirectURL %></a>
+                            </td>
+                            <td class="px-4 py-2"><%= url.visitHistory.length %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
